@@ -40,7 +40,7 @@ public class Book {
         System.out.println(name + "взял несколько книг" + namebook);
         for (String namebook : namebooks) {
 
-            System.out.println(namebook);
+            System.out.println(namebook+ "");
         }
         System.out.println("взял книги с названием");
 
@@ -50,7 +50,7 @@ public class Book {
         for (String Book : Books) {
             System.out.println(Book);
         }
-        System.out.println("взял книги");
+        System.out.println(namebook + "");
     }
 
     public void returnBook (String name) {
