@@ -1,40 +1,44 @@
 package com.pb.Trach.hw6;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.util.Objects;
 
-public class Horse extends Animal implements Serializable {
-    private double weight;
+public class Horse extends Animal{
 
-    public Horse() {
-    }
+    private String name_horse;
+    private String individual;
 
-    public Horse(String food, String location) {
+    public Horse(String food, String location, String name_horse, String individual) {
         super(food, location);
+        this.name_horse = name_horse;
+        this.individual = individual;
     }
 
-    public Horse(String food, String location, double weight) {
-        this(food, location);
-        this.weight = weight;
+    public String getName_horse() {
+        return name_horse;
     }
 
-    public double getWeight() {
-        return weight;
+    public void setName_horse(String name_horse) {
+        this.name_horse = name_horse;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public String getIndividual() {
+        return individual;
+    }
+
+    public void setIndividual(String individual) {
+        this.individual = individual;
+    }
+
+    @Override
+    public void makeNoise() {
+        System.out.print(name_horse);
+        super.makeNoise();
     }
 
     @Override
     public void eat() {
-        System.out.println("Лошадь ест.");
-    }
-
-    @Override
-    public String makeNoise() {
-        return "Иго-го-го-го!!!";
+        System.out.print(name_horse);
+        super.eat();
     }
 
     @Override
@@ -42,47 +46,19 @@ public class Horse extends Animal implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Horse)) return false;
         if (!super.equals(o)) return false;
-
         Horse horse = (Horse) o;
-
-        return Double.compare(horse.weight, weight) == 0;
+        return getName_horse().equals(horse.getName_horse()) && getIndividual().equals(horse.getIndividual());
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        long temp;
-        temp = Double.doubleToLongBits(weight);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Objects.hash(super.hashCode(), getName_horse(), getIndividual());
     }
+
 
     @Override
     public String toString() {
-        return "Лошадь" +
-                "  ест: '" + getFood() + '\'' +
-                ", Живет: '" + getLocation() + '\'' +
-                ", Вес = " + weight +
-                "400 кг" + ", Возраст = 10 лет";
-    }
-
-    private void writeObject(ObjectOutputStream os) {
-        try {
-            os.defaultWriteObject();
-            os.writeObject(getFood());
-            os.writeObject(getLocation());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void readObject(ObjectInputStream is) {
-        try {
-            is.defaultReadObject();
-            this.setFood((String) is.readObject());
-            this.setLocation((String) is.readObject());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return "Имя животного: " + name_horse +"\nЕда животного: " + super.getFood() +
+                "\nСреда обитания: " + super.getLocation() + "\nИндивидуальная черта:" + individual + "\n";
     }
 }

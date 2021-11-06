@@ -1,31 +1,44 @@
 package com.pb.Trach.hw6;
 
+import java.util.Objects;
+
 public class Cat extends Animal {
-    private String color;
 
-    public Cat() {
-    }
+    private String name_cat;
+    private String individual;
 
-    public Cat(String food, String location) {
+    public Cat(String food, String location, String name_cat, String individual) {
         super(food, location);
+        this.name_cat = name_cat;
+        this.individual = individual;
     }
 
-    public String getColor() {
-        return color;
+    public String getName_cat() {
+        return name_cat;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setName_cat(String name_cat) {
+        this.name_cat = name_cat;
+    }
+
+    public String getIndividual() {
+        return individual;
+    }
+
+    public void setIndividual(String individual) {
+        this.individual = individual;
+    }
+
+    @Override
+    public void makeNoise() {
+        System.out.print(name_cat);
+        super.makeNoise();
     }
 
     @Override
     public void eat() {
-        System.out.println("Кошкина еда");
-    }
-
-    @Override
-    public String makeNoise() {
-        return "Кошка издает звук";
+        System.out.print(name_cat);
+        super.eat();
     }
 
     @Override
@@ -33,24 +46,18 @@ public class Cat extends Animal {
         if (this == o) return true;
         if (!(o instanceof Cat)) return false;
         if (!super.equals(o)) return false;
-
         Cat cat = (Cat) o;
-
-        return color != null ? color.equals(cat.color) : cat.color == null;
+        return getName_cat().equals(cat.getName_cat()) && getIndividual().equals(cat.getIndividual());
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), getName_cat(), getIndividual());
     }
 
     @Override
     public String toString() {
-        return "Котик " +
-                "кушает:'" + getFood() + '\'' +
-                ", Живет:'" + getLocation() + '\'' +
-                ", Вес = 4,5 кг" + ", Возраст = 7 лет";
+        return "Имя животного: " + name_cat +"\nЕда животного: " + super.getFood() +
+                "\nСреда обитания: " + super.getLocation() + "\nИндивидуальная черта:" + individual + "\n";
     }
 }

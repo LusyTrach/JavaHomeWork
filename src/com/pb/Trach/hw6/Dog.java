@@ -1,31 +1,45 @@
 package com.pb.Trach.hw6;
 
-public class Dog extends Animal {
-    private String name;
+import java.util.Objects;
 
-    public Dog() {
-    }
+public class Dog extends Animal{
 
-    public Dog(String food, String location) {
+    private String name_dog;
+    private String individual;
+
+    public Dog(String food, String location, String name_dog, String individual) {
         super(food, location);
+        this.name_dog = name_dog;
+        this.individual = individual;
     }
 
-    public String getName() {
-        return name;
+    public String getName_dog() {
+        return name_dog;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName_dog(String name_dog) {
+        this.name_dog = name_dog;
+    }
+
+    public String getIndividual() {
+        return individual;
+    }
+
+    public void setIndividual(String individual) {
+        this.individual = individual;
+    }
+
+
+    @Override
+    public void makeNoise() {
+        System.out.print(name_dog);
+        super.makeNoise();
     }
 
     @Override
     public void eat() {
-        System.out.println("Собака кушает");
-    }
-
-    @Override
-    public String makeNoise() {
-        return "Гав-гав-гав!!!";
+        System.out.print(name_dog);
+        super.eat();
     }
 
     @Override
@@ -33,24 +47,20 @@ public class Dog extends Animal {
         if (this == o) return true;
         if (!(o instanceof Dog)) return false;
         if (!super.equals(o)) return false;
-
         Dog dog = (Dog) o;
-
-        return name != null ? name.equals(dog.name) : dog.name == null;
+        return getName_dog().equals(dog.getName_dog()) && getIndividual().equals(dog.getIndividual());
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), getName_dog(), getIndividual());
     }
+
 
     @Override
     public String toString() {
-        return "Пес овчарка " +
-                "ест:'" + getFood() + '\'' +
-                ", Живет:'" + getLocation() + '\'' +
-                ", Вес = 20 кг" + ", Возраст = 5 лет";
+        return "Имя животного: " + name_dog +"\nЕда животного: " + super.getFood() +
+                "\nСреда обитания: " + super.getLocation() + "\nИндивидуальная черта:" + individual + "\n";
     }
 }
+

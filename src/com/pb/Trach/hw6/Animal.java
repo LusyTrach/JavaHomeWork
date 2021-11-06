@@ -1,20 +1,17 @@
 package com.pb.Trach.hw6;
 
-public abstract class Animal {
+import java.util.Objects;
+
+public class Animal {
     private String food;
     private String location;
-
-    public Animal() {
-    }
 
     public Animal(String food, String location) {
         this.food = food;
         this.location = location;
     }
 
-    public String getFood() {
-        return food;
-    }
+    public String getFood() {return food;}
 
     public void setFood(String food) {
         this.food = food;
@@ -28,29 +25,37 @@ public abstract class Animal {
         this.location = location;
     }
 
-    public abstract void eat();
+    public void makeNoise(){
+        System.out.println( " животное шумит");
+    }
 
-    public abstract String makeNoise();
+    public void eat(){
+        System.out.println(" животное ест");
+    }
 
-    public void sleep() {
-        System.out.println("Животное спит.");
+    public void sleep(String name){
+        System.out.println(name + " животное спит");
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Animal)) return false;
         Animal animal = (Animal) o;
-
-        if (food != null ? !food.equals(animal.food) : animal.food != null) return false;
-        return location != null ? location.equals(animal.location) : animal.location == null;
+        return getFood().equals(animal.getFood()) && getLocation().equals(animal.getLocation());
     }
 
     @Override
     public int hashCode() {
-        int result = food != null ? food.hashCode() : 0;
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        return result;
+        return Objects.hash(getFood(), getLocation());
     }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "food='" + food + '\'' +
+                ", location='" + location + '\'' +
+                '}';
+    }
+
 }
